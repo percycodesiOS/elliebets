@@ -1,0 +1,143 @@
+/* EllieBets — app layout (topbar, grid, mobile responsiveness) */
+
+/* Topbar */
+.eb-topbar {
+  position: sticky; top: 0; z-index: 50;
+  background: linear-gradient(180deg, rgba(11,17,16,0.92) 0%, rgba(11,17,16,0.75) 100%);
+  border-bottom: 1px solid var(--eb-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.eb-topbar-inner {
+  max-width: 1640px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex; align-items: center; gap: 24px;
+}
+
+.eb-sport-tabs {
+  display: flex; gap: 4px;
+  padding: 4px;
+  background: var(--eb-input);
+  border: 1px solid var(--eb-border-strong);
+  border-radius: var(--eb-r-pill);
+}
+.eb-sport-tab {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--eb-fg-3);
+  cursor: pointer;
+  transition: all .15s ease;
+  white-space: nowrap;
+}
+.eb-sport-tab:hover:not(:disabled) { color: var(--eb-fg-1); background: rgba(255,255,255,0.04); }
+.eb-sport-tab[aria-pressed="true"] {
+  background: linear-gradient(180deg, rgba(74,222,128,0.20), rgba(34,197,94,0.10));
+  color: #fff;
+  box-shadow: inset 0 0 0 1px rgba(74,222,128,0.45);
+}
+.eb-sport-tab:disabled { opacity: 0.45; cursor: not-allowed; }
+.eb-sport-tab .eb-soon {
+  font-size: 8px; letter-spacing: 0.1em;
+  padding: 1px 4px; border-radius: 3px;
+  background: rgba(255,255,255,0.06); color: var(--eb-fg-4);
+}
+.eb-sport-tab.eb-add { color: var(--eb-fg-3); font-size: 14px; padding: 7px 10px; }
+.eb-sport-tab.eb-add:hover { color: var(--eb-green); }
+
+/* Main grid */
+.eb-main {
+  max-width: 1640px;
+  margin: 0 auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 340px 1fr 360px;
+  gap: 18px;
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+.eb-rail {
+  display: flex; flex-direction: column; gap: 16px;
+  min-width: 0;
+}
+.eb-rail-left  > * { position: sticky; top: 76px; }
+.eb-rail-right > *:first-child { position: sticky; top: 76px; }
+
+.eb-center {
+  display: flex; flex-direction: column; gap: 16px;
+  min-width: 0;
+}
+
+/* Density */
+body.eb-density-compact .eb-panel { padding: 14px !important; }
+body.eb-density-compact .eb-card { padding: 12px !important; }
+body.eb-glow-off .eb-pop, body.eb-glow-off [style*='box-shadow'] { /* gentle reduce only on big panel */ }
+
+/* Mobile bottom nav (hidden on desktop) */
+.eb-bottom-nav { display: none; }
+
+/* ─── Mobile ─────────────────────────────────────── */
+@media (max-width: 1080px) {
+  .eb-main {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 14px 14px 90px;
+  }
+  .eb-rail-left, .eb-rail-right, .eb-center { display: none; }
+  .eb-rail.eb-mobile-show, .eb-center.eb-mobile-show { display: flex; }
+  .eb-rail > * { position: static !important; }
+
+  .eb-topbar-inner { padding: 10px 12px; gap: 10px; flex-wrap: wrap; }
+  .eb-sport-tabs { order: 3; flex-basis: 100%; overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none; }
+  .eb-sport-tabs::-webkit-scrollbar { display: none; }
+  .eb-user-meta { display: none !important; }
+
+  .eb-bottom-nav {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    position: fixed; bottom: 0; left: 0; right: 0;
+    z-index: 60;
+    padding: 8px 8px max(8px, env(safe-area-inset-bottom));
+    background: linear-gradient(0deg, rgba(11,17,16,0.96) 0%, rgba(11,17,16,0.85) 100%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid var(--eb-border);
+  }
+  .eb-bnav {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 2px;
+    padding: 8px 4px;
+    background: transparent; border: 0;
+    color: var(--eb-fg-3);
+    font: inherit;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+  .eb-bnav-icon { font-size: 18px; line-height: 1; }
+  .eb-bnav-label { font-size: 10px; font-weight: 700; letter-spacing: 0.04em; }
+  .eb-bnav-active { color: var(--eb-green); }
+  .eb-bnav-primary {
+    background: linear-gradient(180deg, var(--eb-green) 0%, var(--eb-green-2) 100%);
+    color: #062014;
+    margin: -10px 4px 0;
+    box-shadow: 0 8px 22px rgba(34,197,94,0.40);
+  }
+  .eb-bnav-primary.eb-bnav-active { color: #062014; }
+  .eb-bnav-primary .eb-bnav-icon { font-size: 22px; font-weight: 900; }
+
+  /* On mobile, when in bets/add view, only show the relevant panel */
+  .eb-form-wrap, .eb-list-wrap { display: block; }
+  /* default: show both. JS controls which mobile tab is visible by class on parent */
+}
+
+/* On narrow widths in stats/intel tab, hide the form/list inside center automatically */
+@media (max-width: 1080px) {
+  .eb-center { gap: 14px; }
+}
