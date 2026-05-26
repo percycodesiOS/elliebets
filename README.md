@@ -1,101 +1,38 @@
-# CyberGrader.io
+# EllieBets
 
-A purpose-built workflow tool for cyber teachers — so you stop copy-pasting the same grading feedback and check-in emails 50 times a day.
+A private, invite-only sports betting workflow tool. Live weather signals, multi-book line tracking, closing-line value (CLV) analytics, and the bankroll math that books don't show you. Built for one bettor — by that bettor.
 
-Two HTML files. Account required. Your setup syncs to every device automatically. Works on desktop, tablet, and phone.
-
-**Live at:** https://percycodesios.github.io/CyberGrader.io/
+**Live at:** https://percycodesios.github.io/elliebets/
 
 ---
 
 ## What It Does
 
-### 📝 Teacher Feedback
-Pick the type of work — **First Assignment**, **Assignment**, or **Project** — and the scenario (Perfect, Partial Credit, Missing Work, Welcome, etc.). Pre-written feedback appears with today's date auto-filled. Copy. Paste into the gradebook. Done.
+### 📊 Place a bet in 15 seconds
+Pick the sportsbook (DraftKings, FanDuel, Caesars). Type the player's name — autocomplete finds them. Pick a market, enter the line, the side, the odds, the stake. Hit place. Done.
 
-Click **Generate Variation** to cycle through three alternate phrasings of the same feedback — written in a real teacher's voice from proven classroom feedback. Your saved custom edits become variation #1 so nothing you write ever gets wiped.
+The implied probability, payout, and to-win update live as you type. Notes field auto-populates with the current weather signal when you click "+ Weather signal."
 
-### ✉️ Email Generator
-Every recurring student email you send throughout the year — in one place:
+### 💰 Bankroll, never lied to
+Net profit. ROI. Win rate. Total wagered. At risk. By sportsbook. By sport. Every settled bet feeds the curve. No more "I think I'm up" — you'll know.
 
-- Welcome Letter, Early Check-In, Zero Grade Clarification
-- 25% / 50% / 75% Progress Check-Ins (each tuned to its moment in the term)
-- Final Week Reminder, Upcoming Break
-- Next Nine Weeks Loaded, Semester / Part Change
-- Senior Final Reminder, End of Year (Grades 7–11), End of Year (Seniors)
+### 🎯 CLV (Closing Line Value) tracking
+The single most predictive long-term metric in sharp betting. After each bet settles, log the closing line. EllieBets computes your edge per bet and your rolling average across all settled bets — green if you're beating the market, red if you're not.
 
-Pick the term first. The tool filters the email list to only the types that make sense for that term (no "End of Year" emails available during the first nine weeks, no "Semester Change" during the fourth, etc.). Toggle between **All Students** and **Single Student**. Everything auto-fills — the term, the deadline, the progress target. Copy. Send.
+**Why it matters:** win rate fluctuates with variance. CLV does not. If you consistently beat the close, you're +EV regardless of short-term losses.
 
-**Split 4th Nine Weeks deadlines** auto-populate from your school year dates: pink senior deadline, cyan-green Grades 7–11 deadline. Side by side, impossible to confuse.
+### ⛅ Weather Intelligence (Golf)
+The dew point. The real-feel delta vs actual temp. The wind from a known direction. The precipitation risk. All on one screen, refreshing live from Open-Meteo (no API key needed).
 
-### ⚙️ Gradebook Setup
-One-tap access to every gradebook placeholder text you need:
+Auto-derived signals tell you when conditions match an edge:
+- **EDGE — Suppressed scoring** when dew ≥65°F AND real-feel +6°F above actual
+- **EDGE — Wind premium** when sustained ≥18mph or gusts ≥25mph
+- **LEAN** for milder versions
+- **WARN — Precip risk** when chance ≥50%
+- **NEUTRAL** when nothing notable
 
-- Weekly Overall Grade Update (name + detail)
-- Final Overall Grade (with a red warning box before you publish — delete the weekly placeholder, check honors/CHS quarterly grades, add comments for C-or-lower students)
-- End of Grading Period Checklist (full modal walkthrough)
-
-### 📅 School Year Setup
-Enter your nine-weeks dates **once** at the start of the year — start and end dates for nine weeks 1–3, plus the shared fourth-nine-weeks start with split senior and grades 7–11 end dates. From that point on:
-
-- Date card in the sidebar shows your whole year at a glance
-- Every email auto-fills the correct deadline based on the selected term
-- Senior-specific emails pull the pink senior end date
-- Grades 7–11 emails pull the green general end date
-- No more typing "Monday, June 2 at 11:59 p.m." into every email
-
-Edit anytime from the user profile or by tapping the date pill.
-
----
-
-## Account Required
-
-CyberGrader.io is a personal workflow tool — your edits, saved templates, and school year dates belong to *you*, locked to your account. There is no anonymous mode and no shared classroom view.
-
-1. Visit the site → marketing landing page loads
-2. Click **Create Free Account** (or **Sign In** if you already have one)
-3. Choose **Google** (one tap with your school account) or email/password
-4. First sign-in triggers the School Year Setup modal
-5. Every template edit, customization, and date change auto-saves to Firestore
-6. Open the site on any device, sign in, your data pulls down automatically
-
-### Session persistence
-
-Your sign-in is **session-scoped** — when you close the browser tab or window, you're signed out. Open the site again? You'll need to sign in. This is intentional: shared classroom computers, faculty workstations, and the rare "I lent my laptop to a sub" moment all stay protected.
-
-If you want to *stay* signed in on a personal device, just leave the tab open. Pinning it works great.
-
-### Sign out anytime
-
-User chip → **Sign Out**. Your data stays safe in Firestore until you sign back in.
-
----
-
-## Privacy
-
-Firestore security rules lock every user's data to their own Firebase UID. No one — not other users, not anyone who stumbles on the repo — can read or write your data unless they're signed in as you. The API key embedded in `app.html` is not a secret; security lives in the Firestore rules and the restricted referrer list on the Google API key itself.
-
----
-
-## Pricing
-
-**Free during beta.** No credit card. No monthly fee. Use the entire tool while the beta runs.
-
-When the paid plan launches, **early-beta accounts lock in $4.99/month or $39/year** — the lowest tier the tool will ever offer. You'll see a notice in-app before any billing change happens, with plenty of warning.
-
----
-
-## The Details That Make It Actually Usable
-
-- **Today's date** shows in the top bar with a glowing "TODAY'S DATE" label — updates automatically every day
-- **Senior-specific = pink.** Anywhere in the app. If it's pink, it's about fourth-nine-weeks seniors. No confusion.
-- **Grades 7–11 fourth-nine-weeks = cyan-green.** Same visual language, different audience.
-- **Edit Output** switches to **Save** on click — saves globally and syncs to the cloud
-- **Reset Template** restores original wording; popup confirms only the current template is affected (school year dates and other templates stay safe)
-- **Generate Variation** cycles your saved edit + 2 alternates — never wipes your work
-- **Final Overall Grade warning** — red callout reminds you to delete the weekly placeholder, check honors/year-long/CHS quarterly grades, and add comments for students with C or lower
-- **Mobile-friendly** — logo centers, date pill stays readable, buttons go full-width at narrow widths
-- **How to Use** modal accessible via the ⓘ icon in the top bar
+### 🚪 Invite-only access
+The marketing landing at `index.html` lives publicly. The app at `EllieBets.html` is invite-only — code `ELLIE-2026` for the demo. Real deployment swaps the mock auth for Firebase Google sign-in.
 
 ---
 
@@ -103,75 +40,95 @@ When the paid plan launches, **early-beta accounts lock in $4.99/month or $39/ye
 
 | File | Purpose |
 |---|---|
-| `index.html` | Marketing landing page — what visitors see first. Links to `app.html` for sign-in. |
-| `app.html` | The actual tool. Auth-gated. Loads Firebase, renders the workflow UI. |
-| `assets/cybergrader-logo.png` | Brand wordmark. Referenced by both `index.html` and `app.html`. |
-| `assets/percy-logo.png` | Footer mark. |
-| `assets/sv-portal-logo.png` | Gradebook Setup workflow icon. (Filename predates the rename — kept for cache stability.) |
+| `index.html` | Public marketing landing — what visitors see first |
+| `EllieBets.html` | The app. Invite-only |
+| `src/styles.css` | Design tokens (dark green / slate) |
+| `src/layout.css` | App grid, topbar, mobile bottom nav |
+| `src/landing.css` | Marketing page styles |
+| `src/app.jsx` | App shell, state, layout |
+| `src/login.jsx` | Sign-in screen |
+| `src/bet-form.jsx` | Fast bet entry |
+| `src/bet-list.jsx` | Bet slip + CLV |
+| `src/bankroll.jsx` | P/L · ROI · CLV · breakdowns |
+| `src/weather.jsx` | Weather intel + edge signals |
+| `src/data.jsx` | Mock data, odds helpers, CLV math |
+| `src/api.jsx` | Free-tier API fetchers (Open-Meteo, Odds API, DataGolf, ESPN) |
+| `src/plans.jsx` | Pricing modal (Beta / Pro / Edge tiers) |
+| `src/storage.jsx` | localStorage hook |
+| `src/logo.jsx` | Brand mark + wordmark |
+| `src/tweaks-panel.jsx` | In-app design tweaks panel |
 
 ---
 
-## Hosting (GitHub Pages — Free)
+## Free APIs Wired
 
-GitHub Pages serves the whole site for free, auto-deploys on every commit. Setup:
+All have CORS enabled — work directly from the browser, no backend needed.
 
-1. Create a GitHub account if you don't have one
-2. Create a new repo (name it whatever you want — e.g. `cybergrader`)
-3. Upload all the files from this repo to the root
-4. Go to **Settings → Pages**
-5. Source: **Deploy from a branch** → Branch: `main`, folder: `/ (root)` → Save
-6. Wait about a minute
-7. Your site is live at `https://[your-username].github.io/[repo-name]/`
+| Provider | What | Cost | Setup |
+|---|---|---|---|
+| **Open-Meteo** | Wind, real-feel, dew point, precip | $0 — no key | Works immediately |
+| **The Odds API** | DK · FD · Caesars lines | Free 500 req/mo | Paste key into `localStorage["eb.oddsApiKey"]` |
+| **DataGolf** | Player rankings, field updates | Free signup | Paste key into `localStorage["eb.dataGolfKey"]` |
+| **ESPN PGA** | Live scoreboard, player IDs | $0 — no key | Works immediately |
 
-Bookmark it on desktop. Add it to your iPhone home screen so it feels like an app.
-
----
-
-## How Firebase Is Set Up
-
-Already configured — documented here in case a rebuild is ever needed.
-
-| Setting | Value |
-|---|---|
-| Project | `cybergrader-v2` |
-| Auth methods | Email/Password, Google sign-in |
-| Auth persistence | `browserSessionPersistence` — auto-signs-out when browser closes |
-| Firestore | Production mode, `us-east1` |
-| Security rules | Users read/write only their own `/users/{uid}/...` paths |
-| Authorized domains | `percycodesios.github.io`, `localhost` |
-| API key restrictions | HTTP referrers: percycodesios.github.io, cybergrader-v2.firebaseapp.com, cybergrader-v2.web.app |
-| Plan | Spark (free) — hard-stops at free-tier limits, no credit card, no surprise charges |
-
-The `firebaseConfig` block is embedded directly in `app.html`. The API key is safe to be public — it's not a secret. The Firestore security rules + HTTP referrer restrictions are what protect the data.
+Fetchers live in `src/api.jsx`, exposed as `window.EB_API`.
 
 ---
 
-## How to Update the Tool
+## Deploy on GitHub Pages (Free)
 
-When you get a new `app.html` (or `index.html`):
+1. Push these files to the repo root (you've already created `elliebets`)
+2. **Settings → Pages**
+3. Source: **Deploy from a branch** → Branch: `main`, folder: `/ (root)` → Save
+4. Wait ~60 seconds
+5. Live at `https://percycodesios.github.io/elliebets/`
 
-1. Go to your GitHub repo
-2. Click the file you're replacing
-3. Click the pencil icon (Edit)
-4. Select all → delete → paste the new code
-5. Click **Commit changes**
-6. Wait ~60 seconds — the live site updates automatically
-7. Hard-refresh the browser (Cmd+Shift+R on Mac, Ctrl+Shift+R on Windows) to bypass cache
+Add to iPhone home screen so it feels like a real app.
 
-Your data survives every update — it lives in Firestore, not in the HTML file. The HTML file is just the app engine.
+---
+
+## Roadmap
+
+- **Live odds auto-sync** every 30s — wire The Odds API fetcher into the bet form
+- **Auto-fetch closing line** at event start time
+- **NFL wind-game model** (≥15mph from sideline historically drops totals 4–7 pts)
+- **MLB park factors** + wind direction by ballpark
+- **Backtest engine** — re-run any heuristic against historical events
+- **Kelly criterion** stake sizing
+- **Bet review queue** — weekly forced review of every settled bet
+- **Real Firebase auth** + Firestore sync (replace mock login)
+- **Stripe billing** for Pro / Edge tiers
+
+---
+
+## Pricing (Beta is free)
+
+| Tier | Price | For |
+|---|---|---|
+| **Beta** | $0 | Invite-only, full features, manual entry |
+| **Pro** | $79/mo or $66/mo annual | Live odds + weather + multi-sport + cloud sync |
+| **Edge** | $299/mo or $208/mo annual | DataGolf SG, CLV tracking, custom heuristics, backtesting |
+
+Founders' rates lock for life.
 
 ---
 
 ## Tech Stack
 
-- **Frontend:** Vanilla HTML/CSS/JS — no build step, no framework, no dependencies to break
-- **Auth:** Firebase Auth (modular v10 SDK via CDN), session-scoped persistence
-- **Database:** Cloud Firestore (user preferences + school year dates)
-- **Hosting:** GitHub Pages (free, auto-deploys on commit)
-- **Images:** Transparent PNGs, cache-busted via `?v=` query strings
+- **Frontend:** React 18 + Babel-in-browser (no build step)
+- **Auth (planned):** Firebase Auth (Google), session-scoped
+- **Database (planned):** Cloud Firestore — user-scoped paths
+- **Hosting:** GitHub Pages (free)
+- **APIs:** Open-Meteo, The Odds API, DataGolf, ESPN
 
 ---
 
-## Credits
+## Responsible Gambling
 
-Built by **PercyCodes**.
+EllieBets is a personal record-keeping and analytics tool for legal-age sports bettors. It does **not** facilitate, accept, or process wagers. Users are responsible for ensuring sports betting is legal in their jurisdiction.
+
+**21+ only. If you or someone you know has a gambling problem, call 1-800-GAMBLER.**
+
+---
+
+Built solo. Stay sharp.
