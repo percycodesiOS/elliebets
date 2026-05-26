@@ -1,584 +1,579 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>EllieBets — The private edge-tracker for serious sports bettors</title>
-  <meta name="description" content="A private, invite-only sports betting workflow tool. Live weather signals, multi-book line tracking, and the bankroll math that books don't show you. Built by one bettor, for serious bettors." />
-  <meta name="theme-color" content="#0b1110" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CyberGrader.io — built for cyber teachers</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=1">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png?v=1">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png?v=1">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png?v=1">
+<link rel="shortcut icon" href="assets/favicon-32.png?v=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* PercyCodes / CyberGrader.io Design Tokens
+ * Pulled from cyberGrader/index.html (single source of truth).
+ * Two layers: low-level vars (colors, type, spacing, radii, shadows)
+ * and semantic helpers (.h1, .panel-title, .copy-btn, etc).
+ */
 
-  <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230e1613'/><rect x='14' y='14' width='6' height='36' rx='3' fill='%2322c55e'/><rect x='14' y='14' width='36' height='6' rx='3' fill='%2322c55e'/><rect x='14' y='29' width='24' height='6' rx='3' fill='%2322c55e'/><rect x='14' y='44' width='36' height='6' rx='3' fill='%2322c55e'/><circle cx='50' cy='17' r='3' fill='%2386efac'/></svg>" />
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap');
 
-  <link rel="stylesheet" href="src/styles.css" />
-  <link rel="stylesheet" href="src/landing.css" />
+:root {
+  /* ── Colors ─────────────────────────────────────────────── */
+  --pc-bg:           #23262e;     /* body top */
+  --pc-bg-2:         #1e2128;     /* body bottom */
+  --pc-panel:        #2d313c;
+  --pc-panel-2:      #323642;
+  --pc-panel-3:      #2a2e39;
+
+  --pc-fg-1:         #edf6ff;     /* primary text */
+  --pc-fg-2:         #a4b3c7;     /* muted */
+  --pc-fg-3:         #b8c6db;     /* desc text on block buttons */
+
+  --pc-cyan:         #51d9ff;     /* primary accent */
+  --pc-cyan-2:       #00b7ff;     /* deeper cyan */
+  --pc-pink:         #ff4ec9;     /* SENIOR-only */
+  --pc-green:        #7dffb5;     /* Grades 7–11 / success */
+  --pc-red:          #ff7d7d;     /* destructive / warning */
+  --pc-orange:       #ff9f43;     /* edit-mode active */
+
+  --pc-border:        rgba(81,217,255,.22);
+  --pc-border-strong: rgba(81,217,255,.38);
+  --pc-border-active: rgba(81,217,255,.55);
+  --pc-focus-ring:    rgba(81,217,255,.08);
+
+  /* PercyCodes brand-mark accents (logo only — do not use in chrome) */
+  --pc-mark-magenta: #e9258a;
+  --pc-mark-yellow:  #ffd23f;
+  --pc-mark-sky:     #52d8ff;
+
+  /* ── Type ───────────────────────────────────────────────── */
+  --pc-font-sans:    'Inter', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+  --pc-font-display: 'Sora', 'Inter', 'Segoe UI', system-ui, sans-serif;
+
+  --pc-fs-display: clamp(2.5rem, 5vw, 4.2rem);
+  --pc-fs-h1: 1.3rem;
+  --pc-fs-h2: 1.2rem;
+  --pc-fs-h3: 1rem;
+  --pc-fs-body: 0.95rem;
+  --pc-fs-body-sm: 0.9rem;
+  --pc-fs-label: 0.84rem;
+  --pc-fs-hint: 0.82rem;
+
+  --pc-fw-regular: 600;
+  --pc-fw-bold: 700;
+  --pc-fw-heavy: 800;
+  --pc-fw-black: 900;
+
+  --pc-tracking-wide:    .04em;
+  --pc-tracking-wider:   .06em;
+  --pc-tracking-extreme: .20em;
+
+  /* ── Spacing (4px base) ─────────────────────────────────── */
+  --pc-s-1: 4px;
+  --pc-s-2: 8px;
+  --pc-s-3: 12px;
+  --pc-s-4: 16px;
+  --pc-s-5: 20px;
+  --pc-s-6: 26px;
+  --pc-s-7: 32px;
+
+  /* ── Radii ──────────────────────────────────────────────── */
+  --pc-r-sm: 9px;
+  --pc-r-md: 12px;
+  --pc-r-lg: 14px;
+  --pc-r-xl: 16px;
+  --pc-r-2xl: 18px;
+  --pc-r-3xl: 22px;
+  --pc-r-pill: 999px;
+
+  /* ── Shadows / glow ─────────────────────────────────────── */
+  --pc-shadow-panel: 0 18px 48px rgba(0,0,0,.38);
+  --pc-shadow-card-inset: inset 0 0 0 1px rgba(81,217,255,.04);
+  --pc-shadow-button: 0 8px 22px rgba(0,183,255,.25), inset 0 0 0 1px rgba(255,255,255,.08);
+  --pc-shadow-button-hover: 0 12px 28px rgba(0,183,255,.35), inset 0 0 0 1px rgba(255,255,255,.12);
+  --pc-glow-cyan: 0 0 18px rgba(81,217,255,.85), 0 0 36px rgba(81,217,255,.45), 0 0 56px rgba(0,183,255,.25);
+  --pc-glow-pink: 0 0 18px rgba(255,78,201,.5), 0 0 36px rgba(255,78,201,.25);
+  --pc-drop-cyan: drop-shadow(0 0 14px rgba(81,217,255,.35));
+  --pc-drop-pink: drop-shadow(0 0 18px rgba(255,78,201,.25));
+
+  /* ── Backgrounds ────────────────────────────────────────── */
+  --pc-bg-app:
+    radial-gradient(circle at top right, rgba(0,183,255,.06), transparent 30%),
+    radial-gradient(circle at bottom left, rgba(81,217,255,.04), transparent 30%),
+    linear-gradient(180deg, #23262e 0%, #1e2128 100%);
+  --pc-bg-panel:    linear-gradient(180deg, rgba(50,54,66,.95), rgba(45,49,60,.95));
+  --pc-bg-card:     linear-gradient(180deg, rgba(55,59,72,.95), rgba(48,52,64,.95));
+  --pc-bg-input:    linear-gradient(180deg, rgba(35,39,48,1), rgba(30,34,42,1));
+  --pc-bg-button:   linear-gradient(180deg, var(--pc-cyan-2), var(--pc-cyan));
+  --pc-bg-cyan-soft: linear-gradient(180deg, rgba(0,183,255,.18), rgba(81,217,255,.10));
+
+  /* ── Motion ─────────────────────────────────────────────── */
+  --pc-ease: .18s ease;
+  --pc-ease-fast: .15s ease;
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * Base
+ * ───────────────────────────────────────────────────────────── */
+.pc-root,
+body.pc {
+  background: var(--pc-bg-app);
+  color: var(--pc-fg-1);
+  font-family: var(--pc-font-sans);
+  font-size: var(--pc-fs-body);
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * Type — semantic helpers
+ * ───────────────────────────────────────────────────────────── */
+.pc-display {
+  font-family: var(--pc-font-display);
+  font-size: var(--pc-fs-display);
+  font-weight: var(--pc-fw-black);
+  letter-spacing: .02em;
+  color: var(--pc-fg-1);
+  line-height: 1;
+}
+
+.pc-panel-title { font-family: var(--pc-font-display); }
+.pc-display .dot { color: var(--pc-cyan); }
+
+.pc-panel-title {
+  font-size: var(--pc-fs-h2);
+  font-weight: var(--pc-fw-black);
+  letter-spacing: var(--pc-tracking-wider);
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  text-shadow: var(--pc-glow-cyan);
+}
+
+.pc-h3 {
+  font-size: var(--pc-fs-h3);
+  font-weight: var(--pc-fw-heavy);
+}
+
+.pc-eyebrow {
+  font-size: var(--pc-fs-hint);
+  font-weight: var(--pc-fw-black);
+  letter-spacing: var(--pc-tracking-extreme);
+  color: var(--pc-cyan);
+  text-shadow: 0 0 10px rgba(81,217,255,.75), 0 0 20px rgba(81,217,255,.4);
+  text-transform: uppercase;
+}
+
+.pc-body { font-size: var(--pc-fs-body); line-height: 1.6; }
+.pc-muted { color: var(--pc-fg-2); }
+.pc-label {
+  font-size: var(--pc-fs-label);
+  color: var(--pc-fg-2);
+  font-weight: var(--pc-fw-heavy);
+  letter-spacing: .02em;
+}
+
+.pc-senior   { color: var(--pc-pink);  font-weight: var(--pc-fw-bold); }
+.pc-general  { color: var(--pc-green); font-weight: var(--pc-fw-bold); }
+
+/* ─────────────────────────────────────────────────────────────
+ * Surfaces
+ * ───────────────────────────────────────────────────────────── */
+.pc-panel {
+  background: var(--pc-bg-panel);
+  border: 1px solid var(--pc-border);
+  border-radius: var(--pc-r-2xl);
+  box-shadow: var(--pc-shadow-panel);
+}
+
+.pc-card {
+  background: var(--pc-bg-card);
+  border: 1px solid var(--pc-border);
+  border-radius: var(--pc-r-xl);
+  box-shadow: var(--pc-shadow-card-inset);
+  padding: var(--pc-s-4);
+}
+
+.pc-pill {
+  background: linear-gradient(180deg, rgba(58,62,76,.95), rgba(50,54,66,.92));
+  border: 1px solid var(--pc-border-strong);
+  border-radius: var(--pc-r-lg);
+  padding: 12px 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--pc-fg-1);
+  font-weight: var(--pc-fw-heavy);
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * Controls
+ * ───────────────────────────────────────────────────────────── */
+.pc-input,
+.pc-select,
+.pc-textarea {
+  width: 100%;
+  border: 1px solid rgba(81,217,255,.28);
+  background: var(--pc-bg-input);
+  color: var(--pc-fg-1);
+  border-radius: var(--pc-r-lg);
+  padding: 13px 14px;
+  font: inherit;
+  transition: var(--pc-ease);
+}
+.pc-input:focus,
+.pc-select:focus,
+.pc-textarea:focus {
+  outline: none;
+  border-color: rgba(81,217,255,.45);
+  box-shadow: 0 0 0 4px var(--pc-focus-ring);
+}
+
+.pc-btn {
+  border: 0;
+  border-radius: var(--pc-r-md);
+  padding: 10px 14px;
+  font: inherit;
+  font-weight: var(--pc-fw-heavy);
+  cursor: pointer;
+  transition: var(--pc-ease);
+}
+.pc-btn:hover { transform: translateY(-1px); }
+
+.pc-btn-primary {
+  border-radius: var(--pc-r-lg);
+  padding: 18px 24px;
+  font-size: 1.05rem;
+  font-weight: var(--pc-fw-black);
+  letter-spacing: var(--pc-tracking-wide);
+  text-transform: uppercase;
+  background: var(--pc-bg-button);
+  color: #02131f;
+  border: 1px solid rgba(81,217,255,.6);
+  box-shadow: var(--pc-shadow-button);
+}
+.pc-btn-primary:hover { transform: translateY(-2px); box-shadow: var(--pc-shadow-button-hover); }
+
+.pc-btn-edit  { background: rgba(81,217,255,.12); color: #9de8ff; border: 1px solid rgba(81,217,255,.45); font-weight: var(--pc-fw-black); }
+.pc-btn-ghost { background: rgba(81,217,255,.08); color: var(--pc-fg-1); border: 1px solid rgba(81,217,255,.18); }
+.pc-btn-save  { background: rgba(125,255,181,.12); color: #baffd3; border: 1px solid rgba(125,255,181,.25); }
+.pc-btn-reset { background: rgba(255,125,125,.12); color: #ffc0c0; border: 1px solid rgba(255,125,125,.22); }
+
+/* ─────────────────────────────────────────────────────────────
+ * Senior / general semantic blocks
+ * ───────────────────────────────────────────────────────────── */
+.pc-callout-senior {
+  background: rgba(255,110,180,.10);
+  border: 1px solid rgba(255,110,180,.38);
+  color: var(--pc-pink);
+  font-weight: var(--pc-fw-black);
+  letter-spacing: var(--pc-tracking-wider);
+  text-shadow: 0 0 10px rgba(255,110,180,.4);
+  border-radius: var(--pc-r-md);
+  padding: 10px 14px;
+  text-align: center;
+}
+.pc-callout-general {
+  background: rgba(125,255,181,.10);
+  border: 1px solid rgba(125,255,181,.38);
+  color: var(--pc-green);
+  font-weight: var(--pc-fw-black);
+  border-radius: var(--pc-r-md);
+  padding: 10px 14px;
+  text-align: center;
+}
+
+</style>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--pc-bg-app);color:var(--pc-fg-1);
+  font-family:var(--pc-font-sans);font-size:16px;line-height:1.6}
+img{max-width:100%;display:block}
+.wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+
+/* NAV */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+.nav__logo{height:54px;filter:var(--pc-drop-cyan)}
+.nav__cta{display:flex;gap:10px;align-items:center}
+.nav a:not(.btn){color:var(--pc-fg-2);text-decoration:none;font-weight:700;font-size:.95rem;padding:10px 14px;border-radius:10px;transition:var(--pc-ease)}
+.nav a:not(.btn):hover{color:var(--pc-fg-1);background:rgba(81,217,255,.08)}
+/* Buttons — same 5-tier DNA as the app */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-family:var(--pc-font-sans);text-decoration:none;cursor:pointer;
+  border:1px solid transparent;border-radius:12px;padding:11px 18px;
+  font-weight:800;font-size:.95rem;letter-spacing:.01em;line-height:1.1;white-space:nowrap;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn:focus-visible{outline:none;box-shadow:0 0 0 4px rgba(81,217,255,.22)}
+/* Tier 1 — Primary */
+.btn-primary{padding:14px 22px;border-radius:14px;font-weight:900;font-size:1rem;
+  letter-spacing:.04em;text-transform:uppercase;
+  background:linear-gradient(180deg,#7fe6ff,#00b7ff);color:#001624;border-color:rgba(127,230,255,.85);
+  box-shadow:0 8px 22px rgba(0,183,255,.35), inset 0 0 0 1px rgba(255,255,255,.2);
+  text-shadow:0 1px 0 rgba(255,255,255,.3)}
+.btn-primary:hover{transform:translateY(-2px);
+  background:linear-gradient(180deg,#aef0ff,#22c8ff);
+  box-shadow:0 12px 30px rgba(0,183,255,.5), inset 0 0 0 1px rgba(255,255,255,.3)}
+/* Tier 2 — Secondary */
+.btn-secondary{background:rgba(81,217,255,.10);color:#cdf2ff;border-color:rgba(81,217,255,.45)}
+.btn-secondary:hover{background:rgba(81,217,255,.16);border-color:rgba(81,217,255,.65)}
+/* Tier 4 — Ghost (used as the nav "See How" link) */
+.btn-ghost{background:transparent;color:var(--pc-fg-2);border-color:rgba(81,217,255,.18);font-weight:700}
+.btn-ghost:hover{color:var(--pc-fg-1);background:rgba(81,217,255,.06);border-color:rgba(81,217,255,.35)}
+
+/* HERO */
+.hero{padding:60px 0 80px;text-align:center;position:relative}
+.hero .eyebrow{font-family:var(--pc-font-sans);color:var(--pc-cyan);font-weight:900;letter-spacing:.22em;font-size:.82rem;
+  text-shadow:0 0 10px rgba(81,217,255,.6);margin-bottom:18px;text-transform:uppercase}
+.hero h1{font-family:var(--pc-font-display);font-weight:800;letter-spacing:-.02em;line-height:1.02;
+  font-size:clamp(2.6rem,5.5vw,4.6rem);margin:0 0 18px;color:#fff;text-wrap:balance}
+.hero h1 .accent{color:var(--pc-cyan);text-shadow:0 0 22px rgba(81,217,255,.45)}
+.hero p.lede{font-size:1.18rem;color:var(--pc-fg-2);max-width:680px;margin:0 auto 30px;text-wrap:pretty}
+.hero__cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.hero__meta{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;color:var(--pc-fg-2);font-size:.92rem;font-weight:600}
+.hero__meta span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.hero__meta strong{color:var(--pc-fg-1);font-weight:800}
+
+/* PRODUCT SHOT */
+.product{margin:40px auto 0;max-width:1100px;border-radius:22px;border:1px solid var(--pc-border-strong);
+  background:var(--pc-bg-panel);box-shadow:0 36px 80px rgba(0,0,0,.55),0 0 0 1px rgba(81,217,255,.06) inset;
+  overflow:hidden;padding:28px}
+.product__chrome{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:14px 18px;
+  border-radius:16px;border:1px solid var(--pc-border);background:rgba(45,49,60,.92);margin-bottom:14px}
+.product__pill{justify-self:start;border:1px solid var(--pc-border-strong);border-radius:12px;padding:8px 16px;
+  background:rgba(58,62,76,.95);font-size:.85rem;font-weight:800;color:var(--pc-fg-1);display:flex;flex-direction:column;align-items:center;line-height:1.1}
+.product__pill small{font-family:var(--pc-font-sans);color:var(--pc-cyan);letter-spacing:.18em;font-size:.7rem;font-weight:900;
+  text-shadow:0 0 8px rgba(81,217,255,.55);margin-bottom:2px}
+.product__chrome img{height:90px;filter:var(--pc-drop-cyan)}
+.product__user{justify-self:end;display:flex;align-items:center;gap:8px;border-radius:999px;border:1px solid rgba(81,217,255,.32);
+  padding:6px 14px 6px 6px;background:linear-gradient(180deg,rgba(0,183,255,.14),rgba(81,217,255,.08));font-weight:800;font-size:.88rem}
+.product__user span{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--pc-cyan),var(--pc-cyan-2));
+  color:#02131f;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.82rem}
+.product__blocks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.block{border:1px solid var(--pc-border-strong);border-radius:16px;padding:22px 18px;text-align:center;
+  background:linear-gradient(180deg,rgba(58,62,76,.95),rgba(50,54,66,.95))}
+.block.is-active{background:linear-gradient(180deg,rgba(0,183,255,.32),rgba(81,217,255,.14));
+  box-shadow:0 0 22px rgba(0,183,255,.22),inset 0 0 0 1px rgba(81,217,255,.18)}
+.block .icon{font-size:1.9rem;line-height:1;margin-bottom:8px}
+.block .icon img{height:42px;display:inline-block;width:auto}
+.block .title{font-weight:900;color:#fff;font-size:1.05rem;margin-bottom:4px}
+.block .sub{font-size:.82rem;color:var(--pc-fg-3)}
+
+/* SECTION */
+.section{padding:80px 0}
+.section h2{font-family:var(--pc-font-display);font-size:clamp(2rem,3.8vw,2.8rem);font-weight:800;color:#fff;
+  margin:0 0 14px;letter-spacing:-.01em;line-height:1.1;text-wrap:balance}
+.section .lede{color:var(--pc-fg-2);font-size:1.1rem;max-width:640px;margin:0 0 38px}
+.section.center{text-align:center}.section.center .lede{margin:0 auto 38px}
+
+/* FEATURES */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.feat{padding:26px;border-radius:18px;border:1px solid var(--pc-border);background:var(--pc-bg-panel);
+  box-shadow:var(--pc-shadow-card-inset);position:relative;overflow:hidden}
+.feat .glyph{font-size:1.8rem;margin-bottom:14px;display:inline-flex;align-items:center;justify-content:center;
+  width:54px;height:54px;border-radius:14px;background:rgba(81,217,255,.12);border:1px solid rgba(81,217,255,.3)}
+.feat h3{font-family:var(--pc-font-display);font-weight:700;font-size:1.18rem;margin:0 0 8px;color:#fff}
+.feat p{margin:0;color:var(--pc-fg-2);font-size:.96rem;line-height:1.6}
+.feat ul{margin:10px 0 0;padding-left:18px;color:var(--pc-fg-2);font-size:.92rem;display:grid;gap:4px}
+
+/* DEADLINE COMPARE */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}
+.compare > div{padding:24px;border-radius:18px;border:1.5px solid;background:rgba(10,18,30,.55)}
+.compare .senior{border-color:rgba(255,78,201,.4);box-shadow:0 0 30px rgba(255,78,201,.10)}
+.compare .general{border-color:rgba(125,255,181,.4);box-shadow:0 0 30px rgba(125,255,181,.08)}
+.compare h4{margin:0 0 8px;font-family:var(--pc-font-display);font-weight:700;font-size:.92rem;letter-spacing:.12em;text-transform:uppercase}
+.compare .senior h4{color:var(--pc-pink);text-shadow:0 0 12px rgba(255,78,201,.4)}
+.compare .general h4{color:var(--pc-green);text-shadow:0 0 12px rgba(125,255,181,.35)}
+.compare .date{font-size:1.4rem;font-weight:900;color:#fff;margin-bottom:6px}
+.compare p{margin:0;color:var(--pc-fg-2);font-size:.95rem}
+
+/* PRICE */
+.price{margin:0 auto;max-width:560px;padding:42px 38px;border-radius:24px;text-align:center;
+  border:1.5px solid var(--pc-border-strong);background:var(--pc-bg-panel);
+  box-shadow:0 36px 80px rgba(0,0,0,.45)}
+.price .beta-badge{display:inline-block;margin-bottom:18px;padding:8px 14px;border-radius:999px;
+  background:rgba(81,217,255,.10);border:1px solid rgba(81,217,255,.35);color:var(--pc-cyan);
+  font-size:.78rem;font-weight:800;letter-spacing:.04em}
+.price .tag{font-family:var(--pc-font-display);font-size:4.2rem;font-weight:800;color:#fff;line-height:1;
+  text-shadow:var(--pc-glow-cyan);margin-bottom:6px}
+.price .tag small{font-size:1rem;color:var(--pc-cyan);font-weight:800;letter-spacing:.22em;display:block;margin-bottom:6px;text-shadow:0 0 10px rgba(81,217,255,.4)}
+.price .tag .per{font-family:var(--pc-font-sans);font-size:1.2rem;color:var(--pc-fg-2);font-weight:600;letter-spacing:0;text-shadow:none}
+.price .alt{color:var(--pc-fg-2);font-size:1rem;margin-bottom:6px}
+.price .alt strong{color:#fff;font-weight:800}
+.price .fineprint{margin-top:14px;color:var(--pc-fg-2);font-size:.82rem;font-style:italic}
+.price ul{list-style:none;margin:24px 0;padding:0;display:grid;gap:10px;text-align:left}
+.price li{display:flex;align-items:center;gap:10px;color:var(--pc-fg-2);font-size:.98rem}
+.price li::before{content:"✓";color:var(--pc-green);font-weight:900;font-size:1.1rem;
+  width:22px;height:22px;border-radius:50%;background:rgba(125,255,181,.14);
+  display:flex;align-items:center;justify-content:center;flex:0 0 22px}
+
+/* QUOTE / VOICE */
+.voice{padding:80px 0;text-align:center}
+.voice blockquote{margin:0 auto;max-width:780px;font-family:var(--pc-font-display);font-weight:600;
+  font-size:clamp(1.5rem,2.6vw,2rem);color:#fff;line-height:1.4;text-wrap:balance}
+.voice blockquote::before{content:"\201C";color:var(--pc-cyan);font-size:4rem;line-height:0;display:block;margin-bottom:24px;text-shadow:0 0 20px rgba(81,217,255,.5)}
+.voice cite{display:block;margin-top:20px;font-style:normal;color:var(--pc-fg-2);font-size:.95rem;font-weight:700;letter-spacing:.04em}
+
+/* FOOTER */
+.foot{padding:60px 0 40px;text-align:center;border-top:1px solid var(--pc-border)}
+.foot img{height:200px;margin:0 auto;filter:var(--pc-drop-pink)}
+.foot p{color:var(--pc-fg-2);font-style:italic;margin-top:6px}
+.foot .brand{color:var(--pc-cyan);font-style:normal;font-weight:900;letter-spacing:.06em}
+
+@media (max-width:880px){
+  .feat-grid{grid-template-columns:1fr}
+  .product__blocks{grid-template-columns:1fr}
+  .compare{grid-template-columns:1fr}
+  .product__chrome{grid-template-columns:1fr;gap:12px;text-align:center}
+  .product__pill,.product__user{justify-self:center}
+  .nav a:not(.btn){display:none}
+}
+</style>
 </head>
 <body>
 
-  <!-- ── Nav ─────────────────────────────────────────── -->
-  <header class="lp-nav">
-    <div class="lp-wrap lp-nav-inner">
-      <a href="#top" style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: inherit;">
-        <svg width="34" height="34" viewBox="0 0 64 64" aria-label="EllieBets" role="img"
-             style="filter: drop-shadow(0 4px 14px rgba(74,222,128,0.35));">
-          <defs>
-            <linearGradient id="ebTile" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#1c2a23" /><stop offset="100%" stop-color="#0e1613" />
-            </linearGradient>
-            <linearGradient id="ebBar" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#86efac" /><stop offset="100%" stop-color="#22c55e" />
-            </linearGradient>
-          </defs>
-          <rect x="0" y="0" width="64" height="64" rx="14" fill="url(#ebTile)" />
-          <rect x="0.5" y="0.5" width="63" height="63" rx="13.5" fill="none" stroke="rgba(74,222,128,0.18)" />
-          <rect x="14" y="14" width="6" height="36" rx="3" fill="url(#ebBar)" />
-          <rect x="14" y="14" width="36" height="6" rx="3" fill="url(#ebBar)" />
-          <rect x="14" y="29" width="24" height="6" rx="3" fill="url(#ebBar)" opacity="0.95" />
-          <rect x="14" y="44" width="36" height="6" rx="3" fill="url(#ebBar)" />
-          <circle cx="50" cy="17" r="3" fill="#86efac" />
-        </svg>
-        <span style="font-family: var(--eb-font-display); font-weight: 900; font-size: 20px; letter-spacing: -0.01em;">
-          <span style="color: var(--eb-fg-1);">ellie</span><span style="color: var(--eb-green);">bets</span>
-        </span>
-      </a>
-
-      <nav class="lp-nav-links">
-        <a href="#edge">The Edge</a>
-        <a href="#how">How It Works</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#faq">FAQ</a>
-      </nav>
-
-      <div class="lp-nav-cta">
-        <a href="EllieBets.html" class="eb-btn eb-btn-ghost" style="padding: 8px 14px; font-size: 13px;">Sign in</a>
-        <a href="#apply" class="eb-btn eb-btn-primary" style="padding: 8px 14px; font-size: 13px;">Apply</a>
-        <button class="lp-mobile-toggle" aria-label="Menu" onclick="document.querySelector('.lp-mobile-menu').classList.toggle('open')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-            <line x1="4" y1="7" x2="20" y2="7"/>
-            <line x1="4" y1="12" x2="20" y2="12"/>
-            <line x1="4" y1="17" x2="20" y2="17"/>
-          </svg>
-        </button>
-      </div>
+<header class="wrap">
+  <nav class="nav">
+    <img src="assets/cybergrader-logo.png" alt="CyberGrader.io" class="nav__logo">
+    <div class="nav__cta">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="app.html" class="btn btn-primary">Sign In</a>
     </div>
-    <div class="lp-wrap">
-      <div class="lp-mobile-menu">
-        <a href="#edge" onclick="document.querySelector('.lp-mobile-menu').classList.remove('open')">The Edge</a>
-        <a href="#how" onclick="document.querySelector('.lp-mobile-menu').classList.remove('open')">How It Works</a>
-        <a href="#pricing" onclick="document.querySelector('.lp-mobile-menu').classList.remove('open')">Pricing</a>
-        <a href="#faq" onclick="document.querySelector('.lp-mobile-menu').classList.remove('open')">FAQ</a>
-        <a href="EllieBets.html">Sign in →</a>
-      </div>
+  </nav>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <div class="eyebrow">Built by a cyber teacher · for cyber teachers</div>
+    <h1>Stop copy-pasting the same feedback <span class="accent">50 times a day.</span></h1>
+    <p class="lede">CyberGrader.io is the workflow tool for cyber teachers. Pre-written feedback, recurring student emails, and gradebook placeholder text — all auto-filled with today's date and your school year deadlines. Pick. Copy. Paste. Done.</p>
+    <div class="hero__cta">
+      <a href="app.html" class="btn btn-primary">Start Grading Faster</a>
+      <a href="#features" class="btn btn-secondary">See How It Works</a>
     </div>
-  </header>
+    <div class="hero__meta">
+      <span>🔐 <strong>Google sign-in.</strong> Syncs across devices.</span>
+      <span>🚀 <strong>Free during beta.</strong> Lock in early pricing.</span>
+      <span>📱 <strong>Works everywhere.</strong> Desktop, tablet, phone.</span>
+    </div>
 
-  <!-- ── Hero ────────────────────────────────────────── -->
-  <section class="lp-hero" id="top">
-    <div class="lp-wrap">
-      <div class="lp-hero-grid">
-        <div>
-          <span class="lp-eyebrow">Invite-only · Beta open</span>
-          <h1 class="lp-h1">
-            The edge the <em>books</em> don't price into your line.
-          </h1>
-          <p class="lp-sub">
-            EllieBets watches the dew point, the real-feel delta, the live wind off Windfinder — the micro-conditions sportsbook traders update every six hours, not every six minutes. Track every bet across DraftKings, FanDuel, and Caesars. Know your ROI to the cent.
-          </p>
-
-          <div class="lp-cta-row">
-            <a href="#apply" class="eb-btn eb-btn-primary">Apply for invite →</a>
-            <a href="#how" class="eb-btn eb-btn-ghost">See how it works</a>
-          </div>
-
-          <div class="lp-trustline">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="2.5" stroke-linecap="round">
-              <path d="M12 2L4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/>
-              <path d="M9 12l2 2 4-4"/>
-            </svg>
-            <span><strong>21+ only.</strong> Personal workflow tool — does not place bets, does not handle wagers.</span>
-          </div>
-        </div>
-
-        <!-- Mockup -->
-        <div class="lp-mockup">
-          <div class="lp-mockup-bar">
-            <i></i><i></i><i></i>
-            <span>elliebets.app</span>
-          </div>
-          <div class="lp-mockup-body">
-            <div class="lp-mockup-card">
-              <div class="lp-mock-label">Net Profit</div>
-              <div class="lp-mock-stat">+$1,847.50</div>
-              <div style="font-size: 11px; color: var(--eb-fg-3); margin-top: 4px;">ROI <span style="color: var(--eb-green); font-weight: 700;">+22.4%</span> · 58% win rate</div>
-            </div>
-            <div class="lp-mockup-card">
-              <div class="lp-mock-label">At Risk</div>
-              <div class="lp-mock-stat" style="color: var(--eb-push);">$320</div>
-              <div style="font-size: 11px; color: var(--eb-fg-3); margin-top: 4px;">4 open bets</div>
-            </div>
-            <div class="lp-mockup-card span-2">
-              <div class="lp-mock-label" style="margin-bottom: 10px;">Active Slip</div>
-              <div class="lp-mock-row">
-                <span style="width: 6px; height: 24px; background: #53d337; border-radius: 2px;"></span>
-                <span>Scheffler U69.5</span>
-                <span class="lp-mock-pill">−115</span>
-              </div>
-              <div class="lp-mock-row">
-                <span style="width: 6px; height: 24px; background: #1493ff; border-radius: 2px;"></span>
-                <span>Åberg Top 10</span>
-                <span class="lp-mock-pill">+180</span>
-              </div>
-              <div class="lp-mock-row">
-                <span style="width: 6px; height: 24px; background: #c79b3a; border-radius: 2px;"></span>
-                <span>DeChambeau FRL</span>
-                <span class="lp-mock-pill">+2500</span>
-              </div>
-            </div>
-            <div class="lp-mockup-card span-2">
-              <div class="lp-mock-edge">
-                <b>EDGE · Suppressed scoring</b>
-                Dew point 73° + real-feel 91° vs 82° actual. Heavy air, ball won't fly. Lean UNDER on round totals, UNDER on birdies.
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="product">
+      <div class="product__chrome">
+        <div class="product__pill"><small>TODAY'S DATE</small>Friday, May 8, 2026</div>
+        <img src="assets/cybergrader-logo.png" alt="">
+        <div class="product__user"><span>T</span>Teacher ▾</div>
       </div>
-
-      <!-- Stats strip -->
-      <div class="lp-stats">
-        <div>
-          <div class="lp-stat-num"><em>3</em> books</div>
-          <div class="lp-stat-cap">DraftKings · FanDuel · Caesars</div>
+      <div class="product__blocks">
+        <div class="block is-active">
+          <div class="icon">📝</div>
+          <div class="title">Teacher Feedback</div>
+          <div class="sub">Pre-generated gradebook feedback</div>
         </div>
-        <div>
-          <div class="lp-stat-num"><em>2</em> sources</div>
-          <div class="lp-stat-cap">Windfinder · Apple Weather</div>
+        <div class="block">
+          <div class="icon">✉️</div>
+          <div class="title">Email Generator</div>
+          <div class="sub">Recurring student emails</div>
         </div>
-        <div>
-          <div class="lp-stat-num"><em>30s</em> entry</div>
-          <div class="lp-stat-cap">Pick, line, stake, done</div>
-        </div>
-        <div>
-          <div class="lp-stat-num"><em>∞</em> bets</div>
-          <div class="lp-stat-cap">Logged · Settled · Analyzed</div>
+        <div class="block">
+          <div class="icon"><img src="assets/sv-portal-logo.png" alt=""></div>
+          <div class="title">Gradebook Setup</div>
+          <div class="sub">Placeholder text + checklist</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── The Edge ────────────────────────────────────── -->
-  <section class="lp-section" id="edge">
-    <div class="lp-wrap">
-      <div class="lp-section-head">
-        <div class="lp-section-eyebrow">The Edge</div>
-        <h2 class="lp-section-title">Three signals the books move on slowly.</h2>
-        <p class="lp-section-sub">
-          Sportsbook traders post a line and let it sit. You watch the conditions change in real time. Here's the edge surface EllieBets puts in front of you.
-        </p>
-      </div>
+  <section class="section wrap" id="features">
+    <h2>Three workflows. One tool.</h2>
+    <p class="lede">Every recurring task in your teaching week, reduced to a click and a copy.</p>
 
-      <div class="lp-edge">
-        <div class="lp-edge-card">
-          <div class="ico">💧</div>
-          <h3>Dew point + real-feel delta</h3>
-          <p>When dew is above 65°F and real-feel is 6°+ above actual temp, the air is thick. Ball flight suppressed. Scoring conditions deteriorate. The tool flags it before the books reprice round totals.</p>
-        </div>
-        <div class="lp-edge-card">
-          <div class="ico">🌬️</div>
-          <h3>Live wind from Windfinder</h3>
-          <p>Sustained wind ≥12 mph from a known direction reshapes who can score. Ball-strikers gain, putters lose. Wind direction + gusts shown on a compass tied directly to the event.</p>
-        </div>
-        <div class="lp-edge-card">
-          <div class="ico">⛅</div>
-          <h3>Apple Weather precip + temp</h3>
-          <p>Suspension risk lives in the precip number. Real-feel lives in the temp number. Both pull from the same source you're already checking — but right next to your bet slip.</p>
-        </div>
+    <div class="feat-grid">
+      <div class="feat">
+        <div class="glyph">📝</div>
+        <h3>Teacher Feedback</h3>
+        <p>Pick the type of work and the scenario. Pre-written feedback appears with today's date auto-filled.</p>
+        <ul>
+          <li>First Assignment / Assignment / Project</li>
+          <li>Perfect, Partial Credit, Missing Work</li>
+          <li>3 voice-matched variations per template</li>
+        </ul>
       </div>
-    </div>
-  </section>
-
-  <!-- ── How It Works ────────────────────────────────── -->
-  <section class="lp-section" id="how" style="background: linear-gradient(180deg, transparent 0%, rgba(74,222,128,0.025) 50%, transparent 100%);">
-    <div class="lp-wrap">
-      <div class="lp-section-head">
-        <div class="lp-section-eyebrow">How It Works</div>
-        <h2 class="lp-section-title">Built for speed. Built for discipline.</h2>
+      <div class="feat">
+        <div class="glyph">✉️</div>
+        <h3>Email Generator</h3>
+        <p>Every recurring student email — Welcome, 25/50/75% check-ins, finals, end-of-year — pre-filled with your deadlines.</p>
+        <ul>
+          <li>Filtered by current term automatically</li>
+          <li>All Students or Single Student</li>
+          <li>Edit subject and body globally</li>
+        </ul>
       </div>
-
-      <div class="lp-feature-row">
-        <div>
-          <div class="lp-section-eyebrow">01 · Fast entry</div>
-          <h3>Place a bet in 15 seconds.</h3>
-          <p>Type the player name. Autocomplete finds them. Pick a sportsbook, market, line, side, odds, stake. Hit place. Done. The implied probability, payout, and to-win update live as you type.</p>
-          <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> Player autocomplete with live odds shown</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> One-tap book switching (DK · FD · CZR)</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> Auto-attach current weather signal to notes</li>
-          </ul>
-        </div>
-        <div class="lp-visual">
-          <div class="lp-mock-label" style="margin-bottom: 12px;">Place a Bet</div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 12px;">
-            <div style="padding: 8px; background: rgba(83,211,55,0.12); border: 1px solid rgba(83,211,55,0.5); border-radius: 8px; text-align: center; font-weight: 800; font-size: 12px; color: #53d337;">DK</div>
-            <div style="padding: 8px; background: var(--eb-bg-1); border: 1px solid var(--eb-border-strong); border-radius: 8px; text-align: center; font-weight: 800; font-size: 12px; color: var(--eb-fg-3);">FD</div>
-            <div style="padding: 8px; background: var(--eb-bg-1); border: 1px solid var(--eb-border-strong); border-radius: 8px; text-align: center; font-weight: 800; font-size: 12px; color: var(--eb-fg-3);">CZR</div>
-          </div>
-          <div style="padding: 10px 12px; background: var(--eb-bg-1); border: 1px solid var(--eb-border-strong); border-radius: 8px; font-size: 13px; font-weight: 700; margin-bottom: 6px;">Scottie Scheffler</div>
-          <div style="padding: 10px 12px; background: var(--eb-bg-1); border: 1px solid var(--eb-border-strong); border-radius: 8px; font-size: 13px; font-weight: 700; margin-bottom: 12px; color: var(--eb-fg-2);">Round Score O/U</div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 6px;">
-            <div style="padding: 10px; background: var(--eb-bg-1); border: 1px solid var(--eb-border-strong); border-radius: 8px; font-family: var(--eb-font-mono); font-weight: 800;">69.5</div>
-            <div style="padding: 10px; background: rgba(74,222,128,0.12); border: 1px solid rgba(74,222,128,0.4); border-radius: 8px; font-weight: 800; color: var(--eb-green); text-align: center;">Under</div>
-          </div>
-          <div style="display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; padding: 10px; background: var(--eb-bg-1); border: 1px solid var(--eb-border); border-radius: 8px; margin-top: 10px;">
-            <div><div style="font-size: 9px; color: var(--eb-fg-3); letter-spacing: 0.1em; font-weight: 800;">TO WIN</div><div style="font-family: var(--eb-font-mono); font-weight: 800; color: var(--eb-green);">$43.48</div></div>
-            <div><div style="font-size: 9px; color: var(--eb-fg-3); letter-spacing: 0.1em; font-weight: 800;">PAYOUT</div><div style="font-family: var(--eb-font-mono); font-weight: 800;">$93.48</div></div>
-            <div><div style="font-size: 9px; color: var(--eb-fg-3); letter-spacing: 0.1em; font-weight: 800;">IMPLIED</div><div style="font-family: var(--eb-font-mono); font-weight: 800;">53.5%</div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="lp-feature-row reverse">
-        <div>
-          <div class="lp-section-eyebrow">02 · Bankroll math</div>
-          <h3>The numbers, never lied to.</h3>
-          <p>Net profit. ROI. Win rate. Total wagered. At risk. By sportsbook. By sport. Every settled bet feeds the chart. No more "I think I'm up" — you'll know.</p>
-          <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> Bankroll curve over time</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> P/L breakdown per book + per sport</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> Money made · Money lost · Money exposed — at a glance</li>
-          </ul>
-        </div>
-        <div class="lp-visual" style="padding: 18px;">
-          <div style="padding: 18px; background: var(--eb-bg-1); border: 1px solid rgba(74,222,128,0.30); border-radius: 14px; text-align: center; box-shadow: 0 0 32px rgba(74,222,128,0.10);">
-            <div style="font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--eb-fg-3); font-weight: 800;">Net Profit</div>
-            <div style="font-family: var(--eb-font-display); font-weight: 900; font-size: 36px; color: var(--eb-green); letter-spacing: -0.01em; margin-top: 4px;">+$1,847.50</div>
-            <div style="font-size: 11px; color: var(--eb-fg-3); margin-top: 4px;">ROI <span style="color: var(--eb-green); font-weight: 700;">+22.4%</span> · Win rate <span style="color: var(--eb-fg-1); font-weight: 700;">58%</span></div>
-          </div>
-          <div style="padding: 12px; background: var(--eb-bg-1); border: 1px solid var(--eb-border); border-radius: 10px; margin-top: 10px;">
-            <div class="lp-mock-label">Bankroll over time</div>
-            <svg viewBox="0 0 280 56" style="width: 100%; height: 56px; margin-top: 4px;">
-              <defs>
-                <linearGradient id="lpSpark" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#4ade80" stop-opacity="0.35"/><stop offset="100%" stop-color="#4ade80" stop-opacity="0"/>
-                </linearGradient>
-              </defs>
-              <path d="M 4 48 L 30 44 L 56 46 L 82 38 L 108 40 L 134 32 L 160 28 L 186 22 L 212 18 L 238 14 L 264 8 L 276 6 L 276 52 L 4 52 Z" fill="url(#lpSpark)"/>
-              <path d="M 4 48 L 30 44 L 56 46 L 82 38 L 108 40 L 134 32 L 160 28 L 186 22 L 212 18 L 238 14 L 264 8 L 276 6" fill="none" stroke="#4ade80" stroke-width="2" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px;">
-            <div style="padding: 10px; background: var(--eb-bg-1); border: 1px solid var(--eb-border); border-radius: 10px;">
-              <div class="lp-mock-label">Money Made</div>
-              <div style="font-family: var(--eb-font-mono); font-weight: 800; font-size: 16px; color: var(--eb-green); margin-top: 2px;">+$2,847.50</div>
-            </div>
-            <div style="padding: 10px; background: var(--eb-bg-1); border: 1px solid var(--eb-border); border-radius: 10px;">
-              <div class="lp-mock-label">Money Lost</div>
-              <div style="font-family: var(--eb-font-mono); font-weight: 800; font-size: 16px; color: var(--eb-loss); margin-top: 2px;">−$1,000.00</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="lp-feature-row">
-        <div>
-          <div class="lp-section-eyebrow">03 · Multi-source intel</div>
-          <h3>One screen. Every signal.</h3>
-          <p>No more bouncing between Windfinder, Apple Weather, the DraftKings app, and your spreadsheet. The conditions, the line, your stake, your edge — same view.</p>
-          <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> Auto-derived edge signals: EDGE · LEAN · WARN · NEUTRAL</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> Wind compass with sustained + gust readings</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> Built to add NFL wind game · MLB park factors next</li>
-          </ul>
-        </div>
-        <div class="lp-visual">
-          <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 12px;">
-            <div>
-              <div class="lp-mock-label">Quail Hollow Club</div>
-              <div style="font-size: 11px; color: var(--eb-fg-3); margin-top: 2px;">Thu 7:10 AM ET</div>
-            </div>
-            <div style="font-size: 10px; padding: 4px 10px; background: rgba(239,68,68,0.16); border: 1px solid rgba(239,68,68,0.45); border-radius: 999px; color: #ffcfcf; font-weight: 800; letter-spacing: 0.06em;">● LIVE</div>
-          </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; background: var(--eb-bg-1); border: 1px solid var(--eb-border); border-radius: 10px; padding: 10px;">
-            <div style="text-align: center;"><div style="font-size: 9px; color: var(--eb-fg-3); letter-spacing: 0.1em; font-weight: 800;">ACTUAL</div><div style="font-family: var(--eb-font-display); font-weight: 800; font-size: 22px;">82°</div></div>
-            <div style="text-align: center;"><div style="font-size: 9px; color: var(--eb-fg-3); letter-spacing: 0.1em; font-weight: 800;">REAL FEEL</div><div style="font-family: var(--eb-font-display); font-weight: 800; font-size: 22px; color: var(--eb-loss);">91°</div><div style="font-size: 9px; color: var(--eb-loss); font-weight: 700; margin-top: 2px;">+9° vs actual</div></div>
-            <div style="text-align: center;"><div style="font-size: 9px; color: var(--eb-fg-3); letter-spacing: 0.1em; font-weight: 800;">DEW PT</div><div style="font-family: var(--eb-font-display); font-weight: 800; font-size: 22px; color: var(--eb-loss);">73°</div></div>
-          </div>
-          <div style="padding: 12px; background: rgba(74,222,128,0.10); border: 1px solid rgba(74,222,128,0.32); border-radius: 10px; margin-top: 10px;">
-            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
-              <span style="font-size: 9px; font-weight: 900; letter-spacing: 0.16em; color: var(--eb-green); padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.25);">EDGE</span>
-              <span style="font-size: 12px; font-weight: 800; color: var(--eb-green);">Suppressed-scoring signal</span>
-            </div>
-            <div style="font-size: 11.5px; color: var(--eb-fg-2); line-height: 1.45;">Dew 73° + real-feel +9° over actual. Heavy air, ball won't fly. Lean UNDER on round totals.</div>
-          </div>
-        </div>
+      <div class="feat">
+        <div class="glyph">⚙️</div>
+        <h3>Gradebook Setup</h3>
+        <p>One-tap copy for every gradebook placeholder you set up each grading period.</p>
+        <ul>
+          <li>Weekly Overall Grade Update</li>
+          <li>Final Overall Grade (with publish reminders)</li>
+          <li>End-of-period checklist</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- ── Sources ─────────────────────────────────────── -->
-  <section class="lp-section tight">
-    <div class="lp-wrap">
-      <div class="lp-section-head">
-        <div class="lp-section-eyebrow">Sources</div>
-        <h2 class="lp-section-title" style="font-size: clamp(22px, 3vw, 32px);">The data is yours. No affiliate kickbacks.</h2>
+  <section class="section wrap">
+    <h2>Senior deadlines, made impossible to confuse.</h2>
+    <p class="lede">Your fourth-nine-weeks senior deadline is different from grades 7–11. CyberGrader color-codes the difference everywhere — from the email body to the sidebar callout.</p>
+    <div class="compare">
+      <div class="senior">
+        <h4>⬡ Senior Deadline</h4>
+        <div class="date">Monday, May 19 · 11:59 p.m.</div>
+        <p>Pink anywhere = seniors. <strong style="color:var(--pc-pink)">No extensions.</strong></p>
       </div>
-      <div class="lp-sources">
-        <div class="lp-source"><div class="lp-source-name">Windfinder</div><div class="lp-source-cap">Wind · Gusts</div></div>
-        <div class="lp-source"><div class="lp-source-name">Apple Weather</div><div class="lp-source-cap">Real-feel · Precip</div></div>
-        <div class="lp-source"><div class="lp-source-name">DK · FD · CZR</div><div class="lp-source-cap">Lines · Props</div></div>
-        <div class="lp-source"><div class="lp-source-name">DataGolf</div><div class="lp-source-cap">SG · ShotLink (Edge)</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Pricing ─────────────────────────────────────── -->
-  <section class="lp-section" id="pricing">
-    <div class="lp-wrap">
-      <div class="lp-section-head">
-        <div class="lp-section-eyebrow">Pricing</div>
-        <h2 class="lp-section-title">An <span style="color: var(--eb-green);">edge</span> worth paying for.</h2>
-        <p class="lp-section-sub">Founders' rates locked for life. No ads. No data sold. No kickbacks from books. You pay, we work for you.</p>
-      </div>
-
-      <div class="lp-billing-toggle">
-        <div class="eb-seg" style="padding: 4px;">
-          <button id="bill-monthly" aria-pressed="false" onclick="setBilling('monthly')">Monthly</button>
-          <button id="bill-annual" aria-pressed="true" onclick="setBilling('annual')">Annual <span style="color: var(--eb-green); margin-left: 4px;">−17%</span></button>
-        </div>
-      </div>
-
-      <div class="lp-pricing-grid">
-        <!-- Beta -->
-        <div class="lp-tier">
-          <h3>Beta</h3>
-          <div class="tag">Invite-only · Free</div>
-          <div class="lp-tier-price">
-            <span class="num">$0</span><span class="per">/mo</span>
-          </div>
-          <div class="lp-tier-billing">Free during beta</div>
-          <div class="lp-tier-desc">Manual entry, full feature set, single device. Get in before pricing locks.</div>
-          <a href="#apply" class="eb-btn eb-btn-ghost">Apply for invite</a>
-          <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> Unlimited bet entry</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> Bankroll + P/L analytics</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> Golf weather signals</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> Manual line tracking · DK · FD · CZR</li>
-          </ul>
-        </div>
-
-        <!-- Pro (featured) -->
-        <div class="lp-tier featured">
-          <span class="lp-tier-badge">MOST POPULAR</span>
-          <h3>Pro</h3>
-          <div class="tag">For sharps</div>
-          <div class="lp-tier-price">
-            <span class="num" data-monthly="79" data-annual="66">$66</span><span class="per">/mo</span>
-          </div>
-          <div class="lp-tier-billing" id="bill-pro">Billed annually · $790/yr</div>
-          <div class="lp-tier-desc">Live data feeds, multi-sport, cloud sync.</div>
-          <a href="#apply" class="eb-btn eb-btn-primary">Upgrade to Pro</a>
-          <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> Everything in Beta</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> Live odds: DK · FD · CZR auto-sync</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> NFL · NBA · MLB · NHL · Soccer</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> Live Windfinder + Apple Weather pulls</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> Cloud sync · desktop + mobile</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> CSV export · line-move alerts</li>
-          </ul>
-        </div>
-
-        <!-- Edge -->
-        <div class="lp-tier">
-          <h3>Edge</h3>
-          <div class="tag">Founder · By application</div>
-          <div class="lp-tier-price">
-            <span class="num" data-monthly="299" data-annual="208">$208</span><span class="per">/mo</span>
-          </div>
-          <div class="lp-tier-billing" id="bill-edge">Billed annually · $2,499/yr</div>
-          <div class="lp-tier-desc">For the operator who treats this like a business.</div>
-          <a href="#apply" class="eb-btn eb-btn-ghost">Apply for Edge</a>
-          <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> Everything in Pro</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> DataGolf SG + ShotLink integration</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> Closing line value (CLV) tracking</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> Custom heuristic builder</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> 5-year backtesting</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-11"/></svg> API access · private Discord · 1:1 onboarding</li>
-          </ul>
-        </div>
+      <div class="general">
+        <h4>◆ Grades 7–11 Deadline</h4>
+        <div class="date">Monday, June 2 · 11:59 p.m.</div>
+        <p>Cyan-green anywhere = the rest of your roster. Standard end-of-year flow.</p>
       </div>
     </div>
   </section>
 
-  <!-- ── FAQ ────────────────────────────────────────── -->
-  <section class="lp-section" id="faq">
-    <div class="lp-wrap">
-      <div class="lp-section-head">
-        <div class="lp-section-eyebrow">FAQ</div>
-        <h2 class="lp-section-title">Common questions.</h2>
-      </div>
-
-      <div class="lp-faq">
-        <div class="lp-faq-item">
-          <button class="lp-faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>Does EllieBets place bets for me?</span><span class="plus">+</span>
-          </button>
-          <div class="lp-faq-a">
-            <p>No. EllieBets is a personal workflow tool. It never connects to a sportsbook account, never moves money, and never holds funds. You place your own bets on DK, FD, or Caesars — EllieBets is where you log them, watch the conditions, and track your bankroll.</p>
-          </div>
-        </div>
-        <div class="lp-faq-item">
-          <button class="lp-faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>Why is it invite-only?</span><span class="plus">+</span>
-          </button>
-          <div class="lp-faq-a">
-            <p>Quality over volume. The founder hand-reviews every applicant during beta. If you're a serious bettor with a real workflow, you'll get in fast.</p>
-          </div>
-        </div>
-        <div class="lp-faq-item">
-          <button class="lp-faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>Is my data private?</span><span class="plus">+</span>
-          </button>
-          <div class="lp-faq-a">
-            <p>Yes. Your bets, your notes, your bankroll — locked to your account, encrypted at rest, never sold, never shared. The only thing the team sees is anonymized aggregates to improve the signal engine.</p>
-          </div>
-        </div>
-        <div class="lp-faq-item">
-          <button class="lp-faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>Why only golf right now?</span><span class="plus">+</span>
-          </button>
-          <div class="lp-faq-a">
-            <p>Because weather signals are the strongest, slowest-moving edge in golf — and that's where this tool started. NFL wind games, MLB park factors, and NBA rest models are next on the roadmap. The sport switcher is already in the app.</p>
-          </div>
-        </div>
-        <div class="lp-faq-item">
-          <button class="lp-faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>Can I cancel anytime?</span><span class="plus">+</span>
-          </button>
-          <div class="lp-faq-a">
-            <p>Yes, no questions asked. Annual subscribers get pro-rated refunds. Founders' rates lock in for life — if you join at $66/mo and we raise prices, you stay at $66/mo forever.</p>
-          </div>
-        </div>
-        <div class="lp-faq-item">
-          <button class="lp-faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>Will this make me money?</span><span class="plus">+</span>
-          </button>
-          <div class="lp-faq-a">
-            <p>Honest answer: not by itself. EllieBets is a tool. Discipline, bankroll management, and your own read on the markets are what make money. The tool gives you faster information, cleaner math, and a record of every decision so you can improve over time. No tool guarantees profit. Anyone who tells you otherwise is selling something fake.</p>
-          </div>
-        </div>
-      </div>
-    </div>
+  <section class="voice wrap">
+    <blockquote>
+      Welcome to the class, I reviewed your first assignment and you are starting strong, your work was clear and showed real effort, keep this energy going because it is a great way to kick off the school year, as always, I'm here if you have any questions.
+    </blockquote>
+    <cite>— Sample Teacher Feedback · in your tone</cite>
   </section>
 
-  <!-- ── Apply ───────────────────────────────────────── -->
-  <section class="lp-section" id="apply">
-    <div class="lp-wrap">
-      <div class="lp-apply">
-        <div id="apply-form">
-          <h3>Apply for invite</h3>
-          <p>Beta is invite-only. Tell us about your workflow — we read every application.</p>
-          <form onsubmit="submitApply(event)">
-            <div>
-              <label class="eb-label">Name</label>
-              <input class="eb-input" name="name" placeholder="Your name" required />
-            </div>
-            <div>
-              <label class="eb-label">Email</label>
-              <input class="eb-input" type="email" name="email" placeholder="you@example.com" required />
-            </div>
-            <div>
-              <label class="eb-label">What do you bet on?</label>
-              <input class="eb-input" name="sports" placeholder="Golf, NFL, NBA…" />
-            </div>
-            <div>
-              <label class="eb-label">Why EllieBets? (optional)</label>
-              <textarea class="eb-textarea" name="why" rows="3" placeholder="What's your edge? Why now?" style="resize: vertical;"></textarea>
-            </div>
-            <button type="submit" class="eb-btn eb-btn-primary" style="padding: 14px; font-size: 14px;">Submit application</button>
-            <div class="eb-hint" style="text-align: center;">21+ only. US-based applicants prioritized for beta.</div>
-          </form>
-        </div>
-        <div id="apply-success" class="lp-apply-success" style="display: none;">
-          <div class="check">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--eb-green)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12l5 5 9-11" />
-            </svg>
-          </div>
-          <h3 style="font-family: var(--eb-font-display); font-weight: 900; font-size: 22px; margin: 8px 0 6px;">Application received.</h3>
-          <p style="color: var(--eb-fg-2); font-size: 13.5px; margin: 0;">We'll review and get back to you within 48 hours.</p>
-        </div>
-      </div>
+  <section class="section center wrap" id="pricing">
+    <h2>Simple pricing.</h2>
+    <p class="lede">One plan. Everything unlocked. Built by a teacher who knows exactly how much you can spend on yet another subscription.</p>
+
+    <div class="price">
+      <div class="beta-badge">🚀 Free during beta · Lock in this price when paid launches</div>
+      <div class="tag"><small>PRO TEACHER</small>$4.99<span class="per">/month</span></div>
+      <div class="alt">or <strong>$39/year</strong> — save $20</div>
+      <ul>
+        <li>All three workflows (Feedback, Email, Gradebook Setup)</li>
+        <li>Voice-matched feedback variations</li>
+        <li>Cloud sync across desktop, tablet, and phone</li>
+        <li>Google sign-in with school account</li>
+        <li>Edit and save your own templates globally</li>
+        <li>All future updates included</li>
+      </ul>
+      <a href="app.html" class="btn btn-primary" style="width:100%;justify-content:center">Start Free Beta</a>
+      <p class="fineprint">No credit card during beta. Cancel anytime once paid plan launches.</p>
     </div>
   </section>
+</main>
 
-  <!-- ── Footer ──────────────────────────────────────── -->
-  <footer class="lp-footer">
-    <div class="lp-wrap">
-      <div class="lp-footer-grid">
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true">
-            <rect width="64" height="64" rx="14" fill="#0e1613" />
-            <rect x="14" y="14" width="6" height="36" rx="3" fill="#22c55e" />
-            <rect x="14" y="14" width="36" height="6" rx="3" fill="#22c55e" />
-            <rect x="14" y="29" width="24" height="6" rx="3" fill="#22c55e" />
-            <rect x="14" y="44" width="36" height="6" rx="3" fill="#22c55e" />
-          </svg>
-          <p>© 2026 EllieBets. Built solo. Stay sharp.</p>
-        </div>
-        <div class="lp-footer-links">
-          <a href="#edge">Edge</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#faq">FAQ</a>
-          <a href="EllieBets.html">Sign in</a>
-        </div>
-      </div>
-      <p class="lp-disclaimer">
-        EllieBets is a personal record-keeping and analytics tool for legal-age sports bettors. It does not facilitate, accept, or process wagers. Users are responsible for ensuring sports betting is legal in their jurisdiction. If you or someone you know has a gambling problem, call 1-800-GAMBLER. Bet responsibly.
-      </p>
-    </div>
-  </footer>
+<footer class="foot">
+  <img src="assets/percy-logo.png" alt="Percy">
+  <p>Created by <span class="brand">PERCYCODES</span> · Named after my dog Percy.</p>
+</footer>
 
-  <!-- Sticky mobile CTA -->
-  <div class="lp-sticky-cta">
-    <a href="#apply" class="eb-btn eb-btn-primary">Apply for invite →</a>
-  </div>
-
-  <script>
-    function setBilling(mode) {
-      const monthly = document.getElementById('bill-monthly');
-      const annual = document.getElementById('bill-annual');
-      monthly.setAttribute('aria-pressed', mode === 'monthly');
-      annual.setAttribute('aria-pressed', mode === 'annual');
-
-      document.querySelectorAll('.lp-tier-price .num').forEach(el => {
-        const m = el.dataset.monthly, a = el.dataset.annual;
-        if (!m || !a) return;
-        el.textContent = '$' + (mode === 'annual' ? a : m);
-      });
-
-      const pro = document.getElementById('bill-pro');
-      const edge = document.getElementById('bill-edge');
-      if (mode === 'annual') {
-        pro.textContent = 'Billed annually · $790/yr';
-        edge.textContent = 'Billed annually · $2,499/yr';
-      } else {
-        pro.textContent = 'Billed monthly · cancel anytime';
-        edge.textContent = 'Billed monthly · cancel anytime';
-      }
-    }
-
-    function submitApply(e) {
-      e.preventDefault();
-      const data = Object.fromEntries(new FormData(e.target));
-      // In real life: POST to /api/applications or Firestore.
-      console.log('Application:', data);
-      document.getElementById('apply-form').style.display = 'none';
-      document.getElementById('apply-success').style.display = 'block';
-      // Scroll success card into view without scrollIntoView
-      const target = document.getElementById('apply');
-      const y = target.getBoundingClientRect().top + window.scrollY - 60;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    }
-  </script>
 </body>
 </html>
