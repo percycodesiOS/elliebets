@@ -1,4 +1,4 @@
-// App — top-level state, layout, sport tabs, mobile responsiveness.
+// App — Analyze-first workspace.
 const { useState, useEffect, useMemo } = React;
 
 const App = () => {
@@ -7,7 +7,8 @@ const App = () => {
   const [sport, setSport] = useLocalStorage('eb.sport', 'golf');
   const [eventId, setEventId] = useLocalStorage('eb.eventId', GOLF_EVENTS[0].id);
   const [filter, setFilter]   = useLocalStorage('eb.filter', 'active');
-  const [mobileTab, setMobileTab] = useState('bets'); // 'bets' | 'add' | 'intel' | 'stats'
+  const [view, setView] = useLocalStorage('eb.view', 'analyze'); // analyze | track
+  const [mobileTab, setMobileTab] = useState('analyze'); // analyze | track | stats | intel
   const [plansOpen, setPlansOpen] = useState(false);
 
   // Tweaks
@@ -38,6 +39,32 @@ const App = () => {
   };
   const signOut = () => setUser(null);
 
+  // Log a final pick straight from the analysis into the tracker
+  const logPickAsBet = (pick, ctx) => {
+    const bet = {
+      id: 'b' + Date.now(),
+      sport: 'golf',
+      book: 'dk',
+      event: `${ctx.tournament} — R1`,
+      pick: pick.player,
+      market: 'Round Score O/U',
+      line: Number(pick.line),
+      side: pick.side,
+      odds: Number(pick.odds),
+      stake: 0, // user fills in
+      notes: [
+        `[Analysis pick #${pick.rank} · ${pick.confidence?.toUpperCase()} confidence]`,
+        pick.projected_score ? `Projected: ${pick.projected_score}` : '',
+        ...(pick.reasons || []).map(r => `• ${r}`),
+      ].filter(Boolean).join('\n'),
+      placedAt: 'Just now',
+      status: 'pending',
+    };
+    handlePlace(bet);
+    setView('track');
+    setMobileTab('track');
+  };
+
   if (!user) return <Login onSignIn={setUser} />;
 
   return (
@@ -45,54 +72,63 @@ const App = () => {
       <Topbar
         user={user}
         sport={sport}
+        view={view}
+        onChangeView={setView}
         onChangeSport={setSport}
         onSignOut={signOut}
         onOpenPlans={() => setPlansOpen(true)}
       />
 
-      {/* DESKTOP: 3-col grid. MOBILE: stacked with bottom tab nav. */}
-      <main className="eb-main">
-        {/* Left rail — bankroll */}
-        <aside className={`eb-rail eb-rail-left ${mobileTab === 'stats' ? 'eb-mobile-show' : ''}`}>
-          <Bankroll bets={bets} startingBank={tweaks.bankStart} />
-        </aside>
+      <main className="eb-main eb-main-wide">
 
-        {/* Center — bet form + bet list */}
-        <section className={`eb-center ${mobileTab === 'bets' || mobileTab === 'add' ? 'eb-mobile-show' : ''}`}>
-          <div className={mobileTab === 'add' || mobileTab === 'bets' ? '' : ''}
-               style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <div className={`eb-form-wrap ${mobileTab === 'add' ? 'eb-mobile-only-show' : ''}`}>
+        {view === 'analyze' ? (
+          <>
+            <section className={`eb-center ${mobileTab === 'analyze' ? 'eb-mobile-show' : ''}`}
+                     style={{ gridColumn: '1 / span 2' }}>
+              <Analyze onLogBet={logPickAsBet} />
+            </section>
+            <aside className={`eb-rail eb-rail-right ${mobileTab === 'intel' ? 'eb-mobile-show' : ''}`}>
+              <WeatherPanel
+                event={event}
+                events={GOLF_EVENTS}
+                onChangeEvent={setEventId}
+              />
+              <SourceCard />
+            </aside>
+          </>
+        ) : (
+          <>
+            <aside className={`eb-rail eb-rail-left ${mobileTab === 'stats' ? 'eb-mobile-show' : ''}`}>
+              <Bankroll bets={bets} startingBank={tweaks.bankStart} />
+            </aside>
+            <section className={`eb-center ${mobileTab === 'track' ? 'eb-mobile-show' : ''}`}>
               <BetForm
                 sport={sport}
                 event={event}
                 weatherNote={weatherNote}
                 onSubmit={handlePlace}
               />
-            </div>
-            <div className={`eb-list-wrap ${mobileTab === 'bets' ? 'eb-mobile-only-show' : ''}`}>
               <BetList bets={bets} onSettle={handleSettle} onDelete={handleDelete} onSetClosing={handleSetClosing}
                        filter={filter} setFilter={setFilter} />
-            </div>
-          </div>
-        </section>
-
-        {/* Right rail — weather */}
-        <aside className={`eb-rail eb-rail-right ${mobileTab === 'intel' ? 'eb-mobile-show' : ''}`}>
-          <WeatherPanel
-            event={event}
-            events={GOLF_EVENTS}
-            onChangeEvent={setEventId}
-          />
-          <SourceCard />
-        </aside>
+            </section>
+            <aside className={`eb-rail eb-rail-right ${mobileTab === 'intel' ? 'eb-mobile-show' : ''}`}>
+              <WeatherPanel
+                event={event}
+                events={GOLF_EVENTS}
+                onChangeEvent={setEventId}
+              />
+              <SourceCard />
+            </aside>
+          </>
+        )}
       </main>
 
       {/* Mobile bottom nav */}
       <nav className="eb-bottom-nav">
-        <BNav icon="📊" label="Stats" active={mobileTab === 'stats'} onClick={() => setMobileTab('stats')} />
-        <BNav icon="🧾" label="Bets"  active={mobileTab === 'bets'}  onClick={() => setMobileTab('bets')} />
-        <BNav icon="＋"  label="Add"   active={mobileTab === 'add'}   onClick={() => setMobileTab('add')} primary />
-        <BNav icon="🌦"  label="Intel" active={mobileTab === 'intel'} onClick={() => setMobileTab('intel')} />
+        <BNav icon="🧪" label="Analyze" active={mobileTab === 'analyze'} onClick={() => { setMobileTab('analyze'); setView('analyze'); }} primary />
+        <BNav icon="📒" label="Track"   active={mobileTab === 'track'}   onClick={() => { setMobileTab('track'); setView('track'); }} />
+        <BNav icon="📊" label="Stats"   active={mobileTab === 'stats'}   onClick={() => { setMobileTab('stats'); setView('track'); }} />
+        <BNav icon="🌦"  label="Intel"   active={mobileTab === 'intel'}   onClick={() => setMobileTab('intel')} />
       </nav>
 
       <PlansModal open={plansOpen} onClose={() => setPlansOpen(false)} />
@@ -126,28 +162,17 @@ const App = () => {
 };
 
 // Top bar
-const Topbar = ({ user, sport, onChangeSport, onSignOut, onOpenPlans }) => (
+const Topbar = ({ user, sport, view, onChangeView, onChangeSport, onSignOut, onOpenPlans }) => (
   <header className="eb-topbar">
     <div className="eb-topbar-inner">
       <Wordmark size={18} />
 
-      <div className="eb-sport-tabs">
-        {SPORTS.map(sp => (
-          <button
-            key={sp.id}
-            onClick={() => onChangeSport(sp.id)}
-            className="eb-sport-tab"
-            aria-pressed={sport === sp.id}
-            disabled={sp.id !== 'golf'}
-            title={sp.id !== 'golf' ? 'Coming soon — Golf only in beta' : ''}
-          >
-            <span style={{ fontSize: 14 }}>{sp.icon}</span>
-            <span>{sp.name}</span>
-            {sp.id !== 'golf' && <span className="eb-soon">SOON</span>}
-          </button>
-        ))}
-        <button className="eb-sport-tab eb-add" title="Add custom sport">
-          <span>＋</span>
+      <div className="eb-view-tabs eb-seg eb-seg-accent" style={{ marginLeft: 8 }}>
+        <button aria-pressed={view === 'analyze'} onClick={() => onChangeView('analyze')}>
+          <span style={{ marginRight: 4 }}>🧪</span> Analyze
+        </button>
+        <button aria-pressed={view === 'track'} onClick={() => onChangeView('track')}>
+          <span style={{ marginRight: 4 }}>📒</span> Track
         </button>
       </div>
 
@@ -190,30 +215,22 @@ const BNav = ({ icon, label, active, onClick, primary }) => (
   </button>
 );
 
-// Sources card sits under weather to credit the free data providers wired in.
+// Sources card — free APIs
 const SourceCard = () => (
   <div className="eb-panel" style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
-    <div style={{
-      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-    }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{
         fontFamily: 'var(--eb-font-display)', fontWeight: 800, fontSize: 12,
         letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--eb-fg-1)',
       }}>Data Sources</div>
       <span className="eb-chip" style={{
         background: 'rgba(74,222,128,0.10)', color: 'var(--eb-green)', borderColor: 'rgba(74,222,128,0.3)',
-      }}>FREE TIER</span>
+      }}>FREE</span>
     </div>
-    <SrcRow color="#86efac" name="Open-Meteo" detail="Wind · Real-feel · Dew · Precip"  badge="No key" />
-    <SrcRow color="#60a5fa" name="The Odds API" detail="DK · FD · CZR lines" badge="500/mo free" />
-    <SrcRow color="#a78bfa" name="DataGolf"     detail="Rankings · Field data" badge="Free signup" />
-    <SrcRow color="#fbbf24" name="ESPN PGA"     detail="Scoreboard · Player stats" badge="No key" />
-    <div className="eb-hint" style={{
-      marginTop: 4, color: 'var(--eb-fg-3)', lineHeight: 1.5,
-      padding: '8px 10px', background: 'var(--eb-bg-1)', borderRadius: 8, border: '1px solid var(--eb-border)',
-    }}>
-      Drop API keys into <span className="eb-mono" style={{ color: 'var(--eb-green)' }}>src/api.jsx</span> · fetchers are stubbed and ready.
-    </div>
+    <SrcRow color="#86efac" name="Open-Meteo"    detail="Wind · Real-feel · Dew · Precip" badge="No key" />
+    <SrcRow color="#60a5fa" name="The Odds API"  detail="DK · FD · CZR lines"             badge="500/mo" />
+    <SrcRow color="#a78bfa" name="DataGolf"      detail="Rankings · Field"                badge="Free" />
+    <SrcRow color="#fbbf24" name="ESPN PGA"      detail="Live scores · Players"           badge="No key" />
   </div>
 );
 
@@ -246,7 +263,6 @@ const TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
 function applyTweakVars(t) {
   const root = document.documentElement;
   root.style.setProperty('--eb-green', t.accent);
-  // Density: tighten panel paddings via a body class
   document.body.classList.toggle('eb-density-compact', t.density === 'Compact');
   document.body.classList.toggle('eb-glow-off', !t.glow);
 }

@@ -51,6 +51,13 @@
 .eb-sport-tab.eb-add { color: var(--eb-fg-3); font-size: 14px; padding: 7px 10px; }
 .eb-sport-tab.eb-add:hover { color: var(--eb-green); }
 
+/* View tabs (Analyze / Track) */
+.eb-view-tabs { padding: 3px; }
+.eb-view-tabs > button { padding: 8px 16px; font-size: 12.5px; }
+
+/* Spinner used in Analyze */
+@keyframes ebSpin { to { transform: rotate(360deg); } }
+
 /* Main grid */
 .eb-main {
   max-width: 1640px;
@@ -61,6 +68,14 @@
   gap: 18px;
   flex: 1 1 auto;
   width: 100%;
+}
+
+/* Analyze view uses 2-col layout (workspace fills, sidebar on right) */
+.eb-main-wide {
+  grid-template-columns: 1fr 360px;
+}
+@media (min-width: 1280px) {
+  .eb-main-wide { grid-template-columns: 1fr 380px; }
 }
 
 .eb-rail {
@@ -85,7 +100,7 @@ body.eb-glow-off .eb-pop, body.eb-glow-off [style*='box-shadow'] { /* gentle red
 
 /* ─── Mobile ─────────────────────────────────────── */
 @media (max-width: 1080px) {
-  .eb-main {
+  .eb-main, .eb-main-wide {
     grid-template-columns: 1fr;
     gap: 14px;
     padding: 14px 14px 90px;
