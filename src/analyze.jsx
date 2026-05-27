@@ -176,9 +176,7 @@ const Analyze = ({ onLogBet, onAttachContext }) => {
           gap: 10,
         }}>
           {SLOTS.map(s => (
-            <div key={s.id} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <ImageSlotWrapper id={s.id} label={s.label} hint={s.hint} />
-            </div>
+            <ImageSlotWrapper key={s.id} id={s.id} label={s.label} hint={s.hint} />
           ))}
         </div>
       </div>
@@ -291,18 +289,44 @@ const StepHeader = ({ num, title, sub }) => (
   </div>
 );
 
-// Wraps the web component so React doesn't fight the custom element's attrs
+// Wraps the web component in a visible dark-friendly dropzone container
 const ImageSlotWrapper = ({ id, label, hint }) => {
   return (
-    <>
-      <div dangerouslySetInnerHTML={{
-        __html: `<image-slot id="${id}" placeholder="${label}" shape="rounded" radius="10" style="display:block; aspect-ratio: 4/3; width: 100%;"></image-slot>`
-      }} />
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--eb-fg-1)' }}>{label}</span>
-        <span className="eb-hint" style={{ fontSize: 10 }}>{hint}</span>
+    <div style={{
+      display: 'flex', flexDirection: 'column', gap: 6,
+    }}>
+      <div style={{
+        position: 'relative',
+        background: 'var(--eb-bg-1)',
+        border: '1.5px dashed rgba(74,222,128,0.32)',
+        borderRadius: 12,
+        padding: 0,
+        overflow: 'hidden',
+        aspectRatio: '4 / 3',
+        transition: 'border-color .15s, background .15s',
+      }}
+      onDragOver={(e) => {
+        e.currentTarget.style.borderColor = 'rgba(74,222,128,0.85)';
+        e.currentTarget.style.background = 'rgba(74,222,128,0.06)';
+      }}
+      onDragLeave={(e) => {
+        e.currentTarget.style.borderColor = 'rgba(74,222,128,0.32)';
+        e.currentTarget.style.background = 'var(--eb-bg-1)';
+      }}
+      onDrop={(e) => {
+        e.currentTarget.style.borderColor = 'rgba(74,222,128,0.32)';
+        e.currentTarget.style.background = 'var(--eb-bg-1)';
+      }}
+      >
+        <div dangerouslySetInnerHTML={{
+          __html: `<image-slot id="${id}" placeholder="${label}" shape="rect" style="display:block; width: 100%; height: 100%;"></image-slot>`
+        }} />
       </div>
-    </>
+      <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+        <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--eb-fg-1)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{label}</span>
+        <span className="eb-hint" style={{ fontSize: 10, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{hint}</span>
+      </div>
+    </div>
   );
 };
 
